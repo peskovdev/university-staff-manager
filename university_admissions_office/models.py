@@ -30,7 +30,9 @@ class Student(models.Model):
     email = models.EmailField(unique=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     date_of_birth = models.DateField()
-    profession = models.ManyToManyField(Profession)
+    profession = models.ForeignKey(
+        Profession, on_delete=models.SET_DEFAULT, default=19
+    )
     approved = models.BooleanField(default=False)
 
     def __str__(self):

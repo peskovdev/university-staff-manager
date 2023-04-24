@@ -1,0 +1,34 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+  Поступление
+{% endblock %}
+
+{% block content_title %}
+  Список студентов:
+{% endblock %}
+
+{% block content %}
+{% if is_auth %}
+    <a href="/product/create">Выставить товар на продажу</a>
+{% endif %}
+
+<hr>
+<h2>Список Товаров:</h2>
+{% if students.count > 0 %}
+<hr />
+    <div class="row">
+        {% for student in students %}
+        <div class="col-4 product">
+            <h1>{{ student.first_name }} {{ student.last_name }}</h1>
+
+            <p>Почта: {{ student.email }}</p>
+            <p>Специальность: {{ student.profession }}</p>
+            <p>ИИН: {{ student.iin }}</p>
+            <p><a href="/product/update/{{ product.id }}/">Назначенные задания</a></p>
+        </div>
+        {% endfor %}
+    </div>
+{% endif %}
+<hr />
+{% endblock %}
