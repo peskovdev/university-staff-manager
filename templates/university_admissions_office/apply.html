@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+  Заявка на поступление
+{% endblock %}
+
+{% block content_title %}
+  Подать заявку на поступление:
+{% endblock %}
+
+{% block content %}
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success mb-3">Подать заявку</button>
+  </form>
+{% endblock %}

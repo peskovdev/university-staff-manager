@@ -1,0 +1,71 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+  Карагандинский университет КАЗПОТРЕБСОЮЗА 
+{% endblock %}
+
+{% block content_title %}
+  КАРАГАНДИНСКИЙ УНИВЕРСИТЕТ КАЗПОТРЕБСОЮЗА
+  <hr>
+{% endblock %}
+
+{% block content %}
+  <h2>Миссия университета</h2>
+  <p style="font-size: 1.1em">
+    Миссия Карагандинского университета Казпотребсоюза – реализация образовательной и научной деятельности как основы профессионального и личностного роста конкурентоспособных специалистов для устойчивого развития региона.
+  </p>
+  <hr>
+  <h2>Почему вы должны выбрать нас?</h2>
+  <div>
+    <ul>
+      <li>Adipisicing praesentium natus laudantium possimus laboriosam Eaque expedita aspernatur atque fugiat quo!</li>
+      <li>Delectus sit laboriosam nemo sapiente magnam Assumenda quidem voluptatibus esse velit laborum? </li>
+      <li>Voluptates itaque tenetur at repellat et? Adipisicing nam ipsam eius explicabo pariatur?</li>
+      <li>At enim rerum adipisci est a ipsa unde Corporis dolorem amet laudantium dolorum et ipsam.</li>
+      <li>Officia sit odio eligendi corrupti maiores. Aliquam necessitatibus quis.</li>
+      <li>Dolor ea soluta ut sed inventore. Mollitia quae culpa qui quo asperiores. Eius exercitationem ea cum ab velit. Officia quis porro ipsa fuga nobis Nihil nisi blanditiis in facere veritatis.</li>
+    </ul>
+  </div>
+  
+  <hr>
+  <h2>Ознакомьтесь с нашими факультетами:</h2>
+  <div class="row" id="accordion">
+    {% for faculty in facultys %}
+      <div class="card">
+        <div class="card-header" id="heading{{ forloop.counter }}">
+          <h5 class="mb-0">
+            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+              {{ faculty.name }}
+            </button>
+          </h5>
+        </div>
+
+        <div id="collapse{{ forloop.counter }}" class="collapse" aria-labelledby="heading{{ forloop.counter }}" data-parent="#accordion">
+          <div class="card-body"> {{ faculty.description }} </div>
+          <div class="row col-10 offset-1" id="accordion-proffession">
+            <h5>Специальности:</h5>
+            {% for profession in faculty.professions %}
+              <div class="card">
+                <div class="card-header" id="heading-p-{{ forloop.counter }}">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse-p-{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse-p-{{ forloop.counter }}">
+                      {{ profession.code }}, {{ profession.name }}
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="collapse-p-{{ forloop.counter }}" class="collapse" aria-labelledby="heading-p-{{ forloop.counter }}" data-parent="#accordion-proffession">
+                  <div class="card-body">
+                    {{ profession.description }}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <a href="/apply" class="btn btn-success mb-3">Поступить</a>
+{% endblock %}

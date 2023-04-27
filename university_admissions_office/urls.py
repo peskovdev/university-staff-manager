@@ -1,11 +1,16 @@
 from django.urls import path
 from . import views
+from django.views.generic import TemplateView
 
-app_name = 'firstapp'
+app_name = "firstapp"
 urlpatterns = [
-    path('', views.faculty_list),
-    # path('ofUser/<int:userId>/', views.ofUser),
-    # path('create/', views.create),
-    # path('update/<int:id>/', views.update),
-    # path('delete/<int:id>/', views.delete),
+    path("", views.university_info),
+    path("apply", views.create),
+    path("students", views.students),
+    path(
+        "success",
+        TemplateView.as_view(
+            template_name="university_admissions_office/sent.html"
+        ),
+    ),
 ]

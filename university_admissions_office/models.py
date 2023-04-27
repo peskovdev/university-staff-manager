@@ -8,6 +8,9 @@ class Faculty(models.Model):
     def __str__(self):
         return self.name
 
+    def professions(self):
+        return Profession.objects.filter(faculty=self)
+
 
 class Profession(models.Model):
     code = models.CharField(max_length=100, unique=True)
