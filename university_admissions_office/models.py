@@ -40,3 +40,14 @@ class Student(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            original = Student.objects.get(pk=self.pk)
+            if not original.approved and self.approved:
+                # Do something when the student is approved, such as sending an email
+                print("--------------------------------")
+                print(f"Student {self.first_name} {self.last_name} has been approved!")
+                print("We sent email to them")
+                print("--------------------------------")
+        super().save(*args, **kwargs)
