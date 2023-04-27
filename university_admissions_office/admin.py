@@ -4,13 +4,10 @@ from .models import Faculty, Profession, Student
 
 
 def approve_students(modeladmin, request, queryset):
-    queryset.update(approved=True)
-    print("--------------------------------")
     for student in queryset:
-        if student.approved:
-            print(f"Student {student.first_name} {student.last_name} has been approved!")
-    print("We sent email to them")
-    print("--------------------------------")
+        if not student.approved:
+            student.approved = True
+            student.save()
 
 
 approve_students.short_description = "Approve selected students"
