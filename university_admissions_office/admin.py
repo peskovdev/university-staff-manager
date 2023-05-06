@@ -10,7 +10,7 @@ def approve_students(modeladmin, request, queryset):
             student.save()
 
 
-approve_students.short_description = "Approve selected students"
+approve_students.short_description = "Зачислить выбранных студентов"
 
 
 class StudentAdmin(admin.ModelAdmin):
@@ -21,7 +21,7 @@ class StudentAdmin(admin.ModelAdmin):
         "profession",
         "approved",
     )
-    list_filter = ("profession", "approved")
+    list_filter = ("approved", "profession")
     actions = [approve_students]
 
 
