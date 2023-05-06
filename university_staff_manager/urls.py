@@ -24,5 +24,12 @@ urlpatterns = [
             namespace="admission-office",
         ),
     ),
-    path("admin/", admin.site.urls),
+    path(
+        "students/",
+        include(
+            "educ_proc_manager.urls",
+            namespace="educ_proc_manager",
+        ),
+    ),
+    path("staff/", admin.site.urls),
 ]

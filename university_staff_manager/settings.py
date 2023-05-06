@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'university_admissions_office',
+    'educ_proc_manager',
 ]
 
 MIDDLEWARE = [

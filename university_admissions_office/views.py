@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 
 from .forms import StudentForm
-from .models import Faculty, Profession, Student
+from .models import Faculty
 
 
 def university_info(request):
@@ -23,13 +23,4 @@ def create(request):
         form = StudentForm()
     return render(
         request, "university_admissions_office/apply.html", {"form": form}
-    )
-
-
-def students(request):
-    students = Student.objects.all()
-    return render(
-        request,
-        "university_admissions_office/students.html",
-        {"students": students},
     )

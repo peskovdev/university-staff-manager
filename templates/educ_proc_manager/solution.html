@@ -1,0 +1,65 @@
+{% extends 'layouts/base-lms.html' %}
+
+{% block title %}
+  {{ student.first_name }} | LMS
+{% endblock %}
+
+{% block content_title %}
+  <b>Задание:</b> {{ task.task }}
+{% endblock %}
+
+{% block content %}
+<a class="btn btn-outline-primary col-3 mb-3" href="/students/{{student.id}}/tasks/">Вернуться к списку заданий</a>
+<div class="alert
+  {% if task.status == "pending" %}
+    alert-primary
+  {% elif task.status == "to_check" %}
+    alert-info
+  {% elif task.status == "approved" %}
+    alert-success
+  {% elif task.status == "rejected" %}
+    alert-danger
+  {% endif %}
+">
+  <h2 class="navbar"># {{ task.task }}</h2>
+  <p><b>Преподаватель:</b> {{ task.task.creator.last_name }} {{ task.task.creator.first_name }}</p>
+  <p><b>Дедлайн:</b> {{ task.task.completion_date }}</p>
+  <p><b>Статус задания:</b> {{ task.get_status_display }}</p>
+  {% if task.status == "approved" or task.status == "rejected" %}
+    <p><b>Оценка:</b> {{ task.rating }}</p>
+  {% endif %}
+  <p><b>Описание:</b><br>{{ task.task.description }}</p>
+  {% if task.task.staff_attachments.count > 0 %}
+    <div>
+      <b>Файлы:</b>
+      <ul>
+        {% for attachment in task.task.staff_attachments.all %}
+          <li>
+            <a class="alert-link" href="{{ attachment.file.url }}">
+              {{ attachment.file.name }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+</div>
+<form method="POST" class="alert alert-secondary" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <div>
+    Прикрепленные файлы:
+    <ul>
+      {% for attachment in task.student_attachments.all %}
+        <li>
+          <a class="alert-link" href="{{ attachment.file.url }}">
+            {{ attachment.file.name }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <button type="submit" class="btn btn-outline-secondary mb-3">Отправить на проверку</button>
+</form>
+{% endblock %}

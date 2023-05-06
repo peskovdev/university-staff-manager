@@ -1,0 +1,60 @@
+{% extends 'layouts/base-lms.html' %}
+
+{% block title %}
+  {{ student.first_name }} | LMS
+{% endblock %}
+
+{% block content_title %}
+  Добро пожаловать, {{ student.first_name }}
+{% endblock %}
+
+{% block content %}
+<hr>
+{% if tasks.count > 0 %}
+  <p>Назначенные задания:</p>
+  <div class="row">
+    {% for task in tasks %}
+    <div class="col-4 alert
+      {% if task.status == "pending" %}
+        alert-primary
+      {% elif task.status == "to_check" %}
+        alert-info
+      {% elif task.status == "approved" %}
+        alert-success
+      {% elif task.status == "rejected" %}
+        alert-danger
+      {% endif %}
+    ">
+      <a class="alert-link" href="/students/{{student.id}}/task/{{ task.id }}/">
+        <h2 class="navbar"># {{ task.task }}</h2>
+      </a>
+      <p><b>Преподаватель:</b> {{ task.task.creator.last_name }} {{ task.task.creator.first_name }}</p>
+      <p><b>Дедлайн:</b> {{ task.task.completion_date }}</p>
+      <p><b>Статус задания:</b> {{ task.get_status_display }}</p>
+      {% if task.status == "approved" or task.status == "rejected" %}
+        <p><b>Оценка:</b> {{ task.rating }}</p>
+      {% endif %}
+      <p><b>Описание:</b><br>{{ task.task.description }}</p>
+
+      {% if task.task.staff_attachments.count > 0 %}
+        <div>
+          <b>Файлы:</b>
+          <ul>
+            {% for attachment in task.task.staff_attachments.all %}
+              <li>
+                <a class="alert-link" href="{{ attachment.file.url }}">
+                  {{ attachment.file.name }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>У вас нет назначенных заданий</p>
+{% endif %}
+<hr />
+{% endblock %}

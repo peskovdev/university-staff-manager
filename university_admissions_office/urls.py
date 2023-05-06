@@ -1,12 +1,12 @@
 from django.urls import path
-from . import views
 from django.views.generic import TemplateView
 
-app_name = "firstapp"
+from . import views
+
+app_name = "university_admissions_office"
 urlpatterns = [
     path("", views.university_info),
     path("apply", views.create),
-    path("students", views.students),
     path(
         "success",
         TemplateView.as_view(

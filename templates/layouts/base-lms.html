@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{% block title %}University Staff Manager{% endblock %}</title>
+  <title>{% block title %} LMS | KEU {% endblock %}</title>
   <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'pictures/favicon.ico' %}">
 </head>
@@ -11,16 +11,15 @@
   <header class="p-3 mb-3 border-bottom">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/">
+        <a href="/students">
           <img src="{% static "pictures/logo.png" %}" alt="KEU" width=200>
         </a>
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="/apply" class="nav-link px-2 link-dark">Подать заявку на поступление</a></li>
         </ul>
 
         {% if user.is_authenticated %}
           <div class="text-end">
-            <a href="/staff" class="nav-link link-secondary">Кабинет администратора</a>
+            <a href="/staff" class="nav-link link-secondary">Личный кабинет преподавателя</a>
           </div>
         {% endif %}
 
@@ -30,7 +29,7 @@
   </header>
 
   <div class="container">
-    <h1> 
+    <h1>
       {% block content_title %}
 
       {% endblock %}
@@ -47,8 +46,6 @@
 
 <script src="{% static "bootstrap/js/bootstrap.bundle.min.js" %}"> </script>
 <script src="{% static "bootstrap/js/bootstrap.min.js" %}"> </script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 </body>
 </html>
