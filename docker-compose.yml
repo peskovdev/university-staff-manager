@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  backend:
+    container_name: 'university-staff-manager'
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    restart: always
+    ports:
+      - 8088:8000
